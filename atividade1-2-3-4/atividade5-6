@@ -1,0 +1,50 @@
+class Fracao:
+    def __init__(self, numerador, denominador):
+        if denominador == 0:
+            raise ValueError("O denominador não pode ser zero")
+        self.numerador = numerador
+        self.denominador = denominador
+
+    def __str__(self):
+        return f"{self.numerador}/{self.denominador}"
+
+    def __add__(self, other):
+        novo_numerador = self.numerador * other.denominador + other.numerador * self.denominador
+        novo_denominador = self.denominador * other.denominador
+        return Fracao(novo_numerador, novo_denominador)
+
+    def __sub__(self, other):
+        novo_numerador = self.numerador * other.denominador - other.numerador * self.denominador
+        novo_denominador = self.denominador * other.denominador
+        return Fracao(novo_numerador, novo_denominador)
+
+    def __mul__(self, other):
+        novo_numerador = self.numerador * other.numerador
+        novo_denominador = self.denominador * other.denominador
+        return Fracao(novo_numerador, novo_denominador)
+
+    def __truediv__(self, other):
+        if other.numerador == 0:
+            raise ValueError("Não é possível dividir por zero")
+        novo_numerador = self.numerador * other.denominador
+        novo_denominador = self.denominador * other.numerador
+        return Fracao(novo_numerador, novo_denominador)
+
+# Exemplo de uso
+frac1 = Fracao(3, 4)
+frac2 = Fracao(2, 5)
+
+print("Fração 1:", frac1)
+print("Fração 2:", frac2)
+
+soma = frac1 + frac2
+print("Soma:", soma)
+
+subtracao = frac1 - frac2
+print("Subtração:", subtracao)
+
+multiplicacao = frac1 * frac2
+print("Multiplicação:", multiplicacao)
+
+divisao = frac1 / frac2
+print("Divisão:", divisao)
