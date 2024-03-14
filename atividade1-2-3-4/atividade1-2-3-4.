@@ -1,0 +1,35 @@
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public class Flores {
+    String fRaca;
+    String fBioma;
+    String fCor;
+
+    void fFotossintese(){
+        System.out.pritln("Fazendo fotossintese");
+        }
+    void fCrescer(){
+        System.out.println("Crescendo");
+        }
+    void fFlorescer(){
+        System.out.println("Abrindo o broto");
+        }
+    }
+    public class Arvores{
+
+    String arRaca;
+    String arCor;
+    String arFolhas;
+
+    void aCrescer(){
+        System.out.println("Crescendo raizes");
+        }
+    void aFotossintese(){
+        System.out.println("Fazendo fotossintese pelas folhas");
+        }
+    void aRespirar(){
+        System.out.println("Recebendo oxigenio");
+        }
+    }
+}
