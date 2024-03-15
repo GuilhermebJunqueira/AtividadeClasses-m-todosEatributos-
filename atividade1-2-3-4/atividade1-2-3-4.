@@ -1,35 +1,155 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public class Flores {
-    String fRaca;
-    String fBioma;
-    String fCor;
+        String fRaca;
+        String fBioma;
+        String fCor;
 
-    void fFotossintese(){
-        System.out.pritln("Fazendo fotossintese");
+        void fFotossintese(){
+            System.out.pritln("Fazendo fotossintese");
         }
-    void fCrescer(){
-        System.out.println("Crescendo");
+        void fCrescer(){
+            System.out.println("Crescendo");
         }
-    void fFlorescer(){
-        System.out.println("Abrindo o broto");
+        void fFlorescer(){
+            System.out.println("Abrindo o broto");
         }
     }
     public class Arvores{
 
-    String arRaca;
-    String arCor;
-    String arFolhas;
+        String arRaca;
+        String arCor;
+        String arFolhas;
 
-    void aCrescer(){
-        System.out.println("Crescendo raizes");
+        void aCrescer(){
+            System.out.println("Crescendo raizes");
         }
-    void aFotossintese(){
-        System.out.println("Fazendo fotossintese pelas folhas");
+        void aFotossintese(){
+            System.out.println("Fazendo fotossintese pelas folhas");
         }
-    void aRespirar(){
-        System.out.println("Recebendo oxigenio");
+        void aRespirar(){
+            System.out.println("Recebendo oxigenio");
+        }
+        public class Celulares{
+            String ceMarca;
+            String ceCor;
+            String ceDataLançamento;
+
+
+            void Ligar(){
+                System.out.println("Ligando");
+            }
+            void ConectarWifi(){
+                System.out.println("Conectando Wifi");
+            }
+            void AbriApp(){
+                System.out.println("Rodando");
+            }
+
+            public class Polvos(){
+                String pRaca;
+                String pHabitat;
+                String pCor;
+
+            void pMudarCor(){
+                System.out.println("Trocando de cor");
+            }
+            void pNadar(){
+                System.out.println("Nadando");
+            }
+            void SoltarTinta(){
+                System.out.println("Soltando tinta");
+            }
+            }
+            public class Caranguejos(){
+                String cRaca;
+                String cHabitat;
+                String cCor;
+
+                void cAndar(){
+                    System.out.println("Andando");
+                }
+                void cNadar(){
+                    System.out.println("Nadando");
+                }
+                void cComer(){
+                    System.out.println("Comendo");
+                }
+            }
+            public class Jogos(){
+                String jipo;
+                String jPreco;
+                String jNome;
+
+                void Jogar(){
+                    System.out.println("Jogando");
+                }
+                void Configurar(){
+                    System.out.println("Configurando");
+                }
+                void Trocar(){
+                    System.out.println("Trocando de jogo");
+                }
+            }
+            public class Frutas(){
+                String fGosto;
+                String fNome;
+                String aCor;
+
+                void fFotossintese(){
+                    System.out.println("Fazendo fotossintese com energia solar");
+                }
+                void fCrescer(){
+                    System.out.println("Crescendo na arvore");
+                }
+                void fModificar(){
+                    System.out.println("Se tornando fruta a base da flor");
+                }
+            }
+            public class Teclados(){
+                String tMarca;
+                String tTipo;
+                String tCor;
+
+                void Digitar(){
+                    System.out.println("Digitando rapido");
+                }
+                void Conectar(){
+                    System.out.println("Conectando ao computador");
+                }
+                void MudarCor(){
+                    System.out.println("Trocando de cor");
+                }
+            }
+            public class axolots(){
+                String aRaca;
+                String aHabitat;
+                String aCor;
+
+                void axComer(){
+                    System.out.println("Comendo");
+                }
+                void Observar(){
+                    System.out.println("Procurando o anda");
+                }
+                void Andar(){
+                    System.out.println("Andando na terra");
+                }
+            }
+            public class Peixes(){
+                String pRaca;
+                String pHabitat;
+                String pCor;
+
+                void Nadar(){
+                    System.out.println("Nadando");
+                }
+                void Comer(){
+                    System.out.println("Comendo");
+                }
+                void Fugir(){
+                    System.out.println("Fugindo");
+                }
+            }
         }
     }
 }
