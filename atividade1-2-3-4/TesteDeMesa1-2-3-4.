@@ -1,0 +1,39 @@
+Polvo:
+Atributos: pRaca, pHabitat, pCor
+Métodos: pMudarCor(), pNadar(), SoltarTinta()
+
+Polvo:
+pRaca = "Polvo Comum"
+pHabitat = "Oceano Atlântico"
+pCor = "Vermelho"
+
+pMudarCor(): "Trocando de cor"
+pNadar(): "Nadando"
+SoltarTinta(): "Soltando tinta"
+-------------------------------
+Flores:
+Atributos: fRaca, fBioma, fCor
+Métodos: fFotossintese(), fCrescer(), fFlorescer()
+
+Flores:
+fRaca = "Rosa"
+fBioma = "Jardim"
+fCor = "Vermelha"
+
+fFotossintese(): "Fazendo fotossíntese"
+fCrescer(): "Crescendo"
+fFlorescer(): "Abrindo o broto"
+-------------------------------
+Peixes:
+Atributos: pRaca, pHabitat, pCor
+Métodos: Nadar(), Comer(), Fugir()
+
+Peixes:
+pRaca = "Betta"
+pHabitat = "Aquário"
+pCor = "Azul"
+
+Nadar(): "Nadando"
+Comer(): "Comendo"
+Fugir(): "Fugindo"
+------------------------------
