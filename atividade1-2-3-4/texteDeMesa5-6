@@ -1,0 +1,49 @@
+frações frac1 = Fracao(3, 4)
+        frac2 = Fracao(2, 5).
+--------------------------
+1º Soma (frac1 + frac2):
+
+frac1 = 3/4
+frac2 = 2/5
+
+novo_numerador = 3*5 + 2*4 = 15 + 8 = 23
+novo_denominador = 4*5 = 20
+
+Soma = Fracao(23, 20)
+---------------------------
+2º Subtração (frac1 - frac2):
+frac1 = 3/4
+frac2 = 2/5
+
+novo_numerador = 3*5 - 2*4 = 15 - 8 = 7
+novo_denominador = 4*5 = 20
+
+Subtração = Fracao(7, 20)
+-------------------------
+3° Multiplicação (frac1 * frac2):
+
+frac1 = 3/4
+frac2 = 2/5
+
+novo_numerador = 3*2 = 6
+novo_denominador = 4*5 = 20
+
+Multiplicação = Fracao(6, 20)
+-----------------------------
+4º Divisão (frac1 / frac2):
+frac1 = 3/4
+frac2 = 2/5
+
+novo_numerador = 3*5 = 15
+novo_denominador = 4*2 = 8
+
+Divisão = Fracao(15, 8)
+-----------------------
+Então, a saída esperada seria:
+
+Fração 1: 3/4
+Fração 2: 2/5
+Soma: 23/20
+Subtração: 7/20
+Multiplicação: 6/20
+Divisão: 15/8
