@@ -337,7 +337,7 @@ class CelularInfoGUI extends JFrame {
         String frase = "O celular " + marca + " é da cor " + cor + " lançado em " + dataLancamento;
         lblFraseCelular.setText(frase);
 
-        exibirImagem(cor.toLowerCase() + ".jpg");
+        exibirImagem(marca.toLowerCase() + ".jpg"); // Assume que o nome da imagem é o mesmo que o nome da espécie em minúsculas com extensão .jpg;
     }
 
     private void exibirImagem(String imageName) {
