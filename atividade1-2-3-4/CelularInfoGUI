@@ -1,0 +1,114 @@
+package org.example;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+
+public class CelularInfoGUI extends JFrame {
+    private JTextField txtMarcaCelular, txtCorCelular, txtDataLancamento;
+    private JLabel lblImagemCelular, lblFraseCelular;
+    private JButton btnGerarFrase, btnTrocarParaFlores;
+    private JButton btnLigar, btnConectarWifi, btnAbrirApp;
+
+    private FlowerInfoGUI flowerInfoGUI;
+
+    public CelularInfoGUI(FlowerInfoGUI flowerInfoGUI) {
+        this.flowerInfoGUI = flowerInfoGUI;
+
+        setTitle("Informações de Celulares");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panelCelular = new JPanel();
+        panelCelular.setLayout(new GridLayout(7, 2));
+
+        panelCelular.add(new JLabel("Marca:"));
+        txtMarcaCelular = new JTextField();
+        panelCelular.add(txtMarcaCelular);
+
+        panelCelular.add(new JLabel("Cor:"));
+        txtCorCelular = new JTextField();
+        panelCelular.add(txtCorCelular);
+
+        panelCelular.add(new JLabel("Data de Lançamento:"));
+        txtDataLancamento = new JTextField();
+        panelCelular.add(txtDataLancamento);
+
+        btnGerarFrase = new JButton("Gerar Frase");
+        btnGerarFrase.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gerarFrase();
+            }
+        });
+        panelCelular.add(btnGerarFrase);
+
+        lblFraseCelular = new JLabel();
+        panelCelular.add(lblFraseCelular);
+
+        lblImagemCelular = new JLabel();
+        panelCelular.add(new JLabel("Imagem:"));
+        panelCelular.add(lblImagemCelular);
+
+        btnLigar = new JButton("Ligar");
+        btnLigar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("O celular " + txtMarcaCelular.getText() + " está ligando");
+            }
+        });
+        panelCelular.add(btnLigar);
+
+        btnConectarWifi = new JButton("ConectarWifi");
+        btnConectarWifi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("O celular " + txtCorCelular.getText() + " está conectado a internet");
+            }
+        });
+        panelCelular.add(btnConectarWifi);
+
+        btnAbrirApp = new JButton("AbrirApp");
+        btnAbrirApp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFraseCelular.setText("Abrindo o CandyCrush no celular de " + txtDataLancamento.getText());
+            }
+        });
+        panelCelular.add(btnAbrirApp);
+
+        btnTrocarParaFlores = new JButton("Ver Flores");
+        btnTrocarParaFlores.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                flowerInfoGUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        panelCelular.add(btnTrocarParaFlores);
+
+        add(panelCelular);
+        setVisible(false);
+    }
+
+    private void gerarFrase() {
+        String marca = txtMarcaCelular.getText();
+        String cor = txtCorCelular.getText();
+        String dataLancamento = txtDataLancamento.getText();
+
+        String frase = "O celular " + marca + " é da cor " + cor + " lançado em " + dataLancamento;
+        lblFraseCelular.setText(frase);
+
+        exibirImagem(marca.toLowerCase() + ".jpg"); // Assume que o nome da imagem é o mesmo que o nome da espécie em minúsculas com extensão .jpg;
+    }
+
+    private void exibirImagem(String imageName) {
+        String imagePath = "imagens/" + imageName; // Pasta onde as imagens estão localizadas
+        File file = new File(imagePath);
+        if (file.exists()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            lblImagemCelular.setIcon(new ImageIcon(image));
+        } else {
+            lblImagemCelular.setIcon(null);
+            JOptionPane.showMessageDialog(this, "Imagem não encontrada: " + imageName, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
