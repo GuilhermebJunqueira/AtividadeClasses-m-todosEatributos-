@@ -1,0 +1,224 @@
+package org.example;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class OctopusInfoGUI extends JFrame {
+    private JTextField txtRacaPolvo, txtHabitatPolvo, txtCorPolvo;
+    private JLabel lblImagemPolvo, lblFrasePolvo;
+    private JButton btnGerarFrasePolvo, btnTrocarParaFlores;
+    private JButton btnMudarCor, btnSoltarTinta, btnNadar;
+    private JButton btnSalvarPolvo, btnDeletarPolvo, btnAtualizarPolvo; // Botões adicionais
+
+    private FlowerInfoGUI flowerInfoGUI;
+
+    public OctopusInfoGUI(FlowerInfoGUI flowerInfoGUI) {
+        this.flowerInfoGUI = flowerInfoGUI;
+
+        setTitle("Informações de Polvos");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panelPolvo = new JPanel();
+        panelPolvo.setLayout(new GridLayout(8, 2));
+
+        panelPolvo.add(new JLabel("Raça:"));
+        txtRacaPolvo = new JTextField();
+        panelPolvo.add(txtRacaPolvo);
+
+        panelPolvo.add(new JLabel("Habitat:"));
+        txtHabitatPolvo = new JTextField();
+        panelPolvo.add(txtHabitatPolvo);
+
+        panelPolvo.add(new JLabel("Cor:"));
+        txtCorPolvo = new JTextField();
+        panelPolvo.add(txtCorPolvo);
+
+        btnGerarFrasePolvo = new JButton("Gerar Frase");
+        btnGerarFrasePolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gerarFrasePolvo();
+            }
+        });
+        panelPolvo.add(btnGerarFrasePolvo);
+
+        lblFrasePolvo = new JLabel();
+        panelPolvo.add(lblFrasePolvo);
+
+        lblImagemPolvo = new JLabel();
+        panelPolvo.add(lblImagemPolvo);
+
+        btnMudarCor = new JButton("Mudar de Cor");
+        btnMudarCor.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo " + txtRacaPolvo.getText() + " está mudando de cor");
+            }
+        });
+        panelPolvo.add(btnMudarCor);
+
+        btnSoltarTinta = new JButton("Soltar Tinta");
+        btnSoltarTinta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo " + txtRacaPolvo.getText() + " soltou tinta");
+            }
+        });
+        panelPolvo.add(btnSoltarTinta);
+
+        btnNadar = new JButton("Nadar");
+        btnNadar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblFrasePolvo.setText("O polvo do " + txtHabitatPolvo.getText() + " está nadando");
+            }
+        });
+        panelPolvo.add(btnNadar);
+
+        btnSalvarPolvo = new JButton("Salvar Polvo");
+        btnSalvarPolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                salvarPolvo();
+            }
+        });
+        panelPolvo.add(btnSalvarPolvo);
+
+        btnDeletarPolvo = new JButton("Deletar Polvo");
+        btnDeletarPolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                deletarPolvo();
+            }
+        });
+        panelPolvo.add(btnDeletarPolvo);
+
+        btnAtualizarPolvo = new JButton("Atualizar Polvo"); // Botão de atualizar
+        btnAtualizarPolvo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                atualizarPolvo();
+            }
+        });
+        panelPolvo.add(btnAtualizarPolvo); // Adicionando o botão de atualizar
+
+        btnTrocarParaFlores = new JButton("Ver Flores");
+        btnTrocarParaFlores.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                flowerInfoGUI.setVisible(true);
+                setVisible(false);
+            }
+        });
+        panelPolvo.add(btnTrocarParaFlores);
+
+        add(panelPolvo);
+        setVisible(false);
+    }
+
+    private void gerarFrasePolvo() {
+        String raca = txtRacaPolvo.getText();
+        String habitat = txtHabitatPolvo.getText();
+        String cor = txtCorPolvo.getText();
+
+        String frase = "O polvo " + cor + " da raça " + raca + " do habitat " + habitat + ".";
+        lblFrasePolvo.setText(frase);
+
+        exibirImagem(cor.toLowerCase() + "_polvo.jpg"); // Assume que o nome da imagem é o mesmo que o nome da cor do polvo em minúsculas com extensão .jpg
+    }
+
+    private void exibirImagem(String imageName) {
+        String imagePath = "imagens/" + imageName; // Pasta onde as imagens estão localizadas
+        File file = new File(imagePath);
+        if (file.exists()) {
+            ImageIcon imageIcon = new ImageIcon(imagePath);
+            Image image = imageIcon.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            lblImagemPolvo.setIcon(new ImageIcon(image));
+        } else {
+            lblImagemPolvo.setIcon(null);
+            JOptionPane.showMessageDialog(this, "Imagem não encontrada: " + imageName, "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void salvarPolvo() {
+        String raca = txtRacaPolvo.getText();
+        String habitat = txtHabitatPolvo.getText();
+        String cor = txtCorPolvo.getText();
+
+        String sql = "INSERT INTO polvo (raca, habitat, corP) VALUES (?, ?, ?)";
+
+        try (Connection conn = ConexaoBD.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, raca);
+            pstmt.setString(2, habitat);
+            pstmt.setString(3, cor);
+
+            int rowsInserted = pstmt.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this, "Polvo salvo com sucesso!");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao salvar o polvo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void deletarPolvo() {
+        String racaPolvo = txtRacaPolvo.getText(); // Obtém o valor da raça do polvo (ou outro identificador único)
+        String habitatPolvo = txtHabitatPolvo.getText(); // Obtém o valor do habitat do polvo (ou outro identificador único)
+
+        String sql = "DELETE FROM polvo WHERE raca = ? AND habitat = ?"; // Query SQL para deletar o polvo
+
+        try (Connection conn = ConexaoBD.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, racaPolvo); // Define o primeiro parâmetro da query
+            pstmt.setString(2, habitatPolvo); // Define o segundo parâmetro da query
+
+            int rowsDeleted = pstmt.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(this, "Polvo deletado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhum polvo encontrado com os dados especificados.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao deletar o polvo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void atualizarPolvo() {
+        String racaPolvo = txtRacaPolvo.getText(); // Obtém o valor da raça do polvo (ou outro identificador único)
+        String habitatPolvo = txtHabitatPolvo.getText(); // Obtém o valor do habitat do polvo (ou outro identificador único)
+        String corPolvo = txtCorPolvo.getText(); // Obtém o valor da cor do polvo
+
+        String sql = "UPDATE polvo SET corP = ? WHERE raca = ? AND habitat = ?"; // Query SQL para atualizar o polvo
+
+        try (Connection conn = ConexaoBD.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, corPolvo); // Define o primeiro parâmetro da query (cor do polvo)
+            pstmt.setString(2, racaPolvo); // Define o segundo parâmetro da query (raça do polvo)
+            pstmt.setString(3, habitatPolvo); // Define o terceiro parâmetro da query (habitat do polvo)
+
+            int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(this, "Polvo atualizado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Nenhum polvo encontrado com os dados especificados.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao atualizar o polvo.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            FlowerInfoGUI flowerInfoGUI = new FlowerInfoGUI();
+            OctopusInfoGUI octopusInfoGUI = new OctopusInfoGUI(flowerInfoGUI);
+            octopusInfoGUI.setVisible(true);
+        });
+    }
+}
